@@ -1,14 +1,14 @@
 import express from 'express';
-import { movies, movieReviews, movieDetails } from './moviesData';
+import { movies, movieReviews, movieDetails, genres } from './moviesData';
 import uniqid from 'uniqid';
 
 const router = express.Router();
-router.get('/', (req, res) => {
+router.get('/movies', (req, res) => {
     res.json(movies);
 });
 
 // Get movie details
-router.get('/:id', (req, res) => {
+router.get('/movies/:id', (req, res) => {
     const id = parseInt(req.params.id);
     if (movieDetails.id == id) {
         res.status(200).json(movieDetails);
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Get movie reviews
-router.get('/:id/reviews', (req, res) => {
+router.get('/movies/:id/reviews', (req, res) => {
     const id = parseInt(req.params.id);
     // find reviews in list
     if (movieReviews.id == id) {
@@ -35,7 +35,7 @@ router.get('/:id/reviews', (req, res) => {
 });
 
 //Post a movie review
-router.post('/:id/reviews', (req, res) => {
+router.post('/movies/:id/reviews', (req, res) => {
     const id = parseInt(req.params.id);
 
     if (movieReviews.id == id) {
@@ -50,6 +50,11 @@ router.post('/:id/reviews', (req, res) => {
             status_code: 404
         });
     }
+});
+
+// Get genres 
+router.get('/genres', (req, res) => {
+    res.json(genres);
 });
 
 export default router;
