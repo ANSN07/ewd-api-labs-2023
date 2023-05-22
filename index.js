@@ -7,6 +7,7 @@ import db from './src/config/db';
 import errorHandler from './src/utils/ErrorHandler';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import logger from './logger';
 
 dotenv.config();
 db.init();
@@ -46,5 +47,5 @@ app.use(
 );
 
 app.listen(port, () => {
-    console.info(`Server running at ${port}`);
+    logger.info(`Server running at ${port}`);
 });

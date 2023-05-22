@@ -1,6 +1,7 @@
 import Account from '../entities/Accounts';
 import mongoose from 'mongoose';
 import AccountRepository from './Repository';
+import logger from '../../../logger';
 
 export default class extends AccountRepository {
 
@@ -34,7 +35,7 @@ export default class extends AccountRepository {
     async merge(accountEntity) {
         const { id, firstName, lastName, email, password, favourites, reviews } = accountEntity;
         await this.model.findByIdAndUpdate(id, { firstName, lastName, email, password, favourites, reviews });
-        console.log({ id, firstName, lastName, email, password, favourites, reviews });
+        logger.info({ id, firstName, lastName, email, password, favourites, reviews });
         return accountEntity;
     }
 
