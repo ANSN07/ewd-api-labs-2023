@@ -4,23 +4,23 @@ Name: Alka Nixon
 
 ## Features.
 
- + Feature 1 - Two new API routes (parameterised URL) for reviews endpoint is added. The get reviews endpoint will fetch all the posted reviews of a particular user. The post endpoint will add the review of the user to the Account data. 
+ - Feature 1 - Two new API routes (parameterised URL) for reviews endpoint is added. The get reviews endpoint will fetch all the posted reviews of a particular user. The post endpoint will add the review of the user to the Account data. 
 
- + Feature 2 - Integration with MongoDB. MongoDB used to store and retrieve the reviews data.
+ - Feature 2 - Integration with MongoDB. MongoDB used to store and retrieve the reviews data.
 
- + Feature 3 - Nested Document in Mongo/Mongoose. Reviews data is an array of objects stored in the database along with the other user details.
+ - Feature 3 - Nested Document in Mongo/Mongoose. Reviews data is an array of objects stored in the database along with the other user details.
 
-  + Feature 4 - Custom validation using Joi. Reviews data contain author name, rating, review text and these are validated using joi.
+  - Feature 4 - Custom validation using Joi. Reviews data contain author name, rating, review text and these are validated using joi.
 
-   + Feature 5 - Good use of express middleware (e.g. Error handling). Error handling is done by using 'http-errors' module which helps to specify error status and error messages.
+  - Feature 5 - Good use of express middleware (e.g. Error handling). Error handling is done by using 'http-errors' module which helps to specify error status and error messages.
 
-    + Feature 6 - API documentation (for example Swagger/openAPI) - Documentation for all accounts endpoints and reviews endpoints.
+  - Feature 6 - API documentation (for example Swagger/openAPI) - Documentation for all accounts endpoints and reviews endpoints.
 
-    + Feature 7 - Logging - using 'winston' module
+  - Feature 7 - Logging - using 'winston' module.
 
-    + Feature 8 - React Integration- At least one GET and POST. User can call get endpoint from myReviews page to see a listed view of their reviews. The post endpoint will be called when user clicks the submit button in the review form and the data is saved to database.
+  - Feature 8 - React Integration- At least one GET and POST. User can call get endpoint from myReviews page to see a listed view of their reviews. The post endpoint will be called when user clicks the submit button in the review form and the data is saved to database.
 
-    + Feature 9 - Basic Authentication and protected routes. Favourites, reviews, fantasy movies page, movie details page, actor details page are all private ones and user can only access movies listing if they are not authenticated.
+  - Feature 9 - Basic Authentication and protected routes. Favourites, reviews, fantasy movies page, movie details page, actor details page are all private ones and user can only access movies listing if they are not authenticated.
 
 
 ## Installation Requirements
