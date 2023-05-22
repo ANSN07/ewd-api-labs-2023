@@ -1,22 +1,31 @@
 import accountService from "../services";
+const createError = require('http-errors');
 
 export default (dependencies) => {
 
     const createAccount = async (request, response, next) => {
-        // Input
-        const { firstName, lastName, email, password } = request.body;
-        // Treatment
-        const account = await accountService.registerAccount(firstName, lastName, email, password, dependencies);
-        //output
-        response.status(201).json(account);
+        try {
+            // Input
+            const { firstName, lastName, email, password } = request.body;
+            // Treatment
+            const account = await accountService.registerAccount(firstName, lastName, email, password, dependencies);
+            //output
+            response.status(201).json(account);
+        } catch (e) {
+            next(createError(500, `Server error: ${e.message}`));
+        }
     };
     const getAccount = async (request, response, next) => {
-        //input
-        const accountId = request.params.id;
-        // Treatment
-        const account = await accountService.getAccount(accountId, dependencies);
-        //output
-        response.status(200).json(account);
+        try {
+            //input
+            const accountId = request.params.id;
+            // Treatment
+            const account = await accountService.getAccount(accountId, dependencies);
+            //output
+            response.status(200).json(account);
+        } catch (e) {
+            next(createError(400, `Invalid Data: ${e.message}`));
+        }
     };
     const listAccounts = async (request, response, next) => {
         // Treatment
@@ -25,13 +34,17 @@ export default (dependencies) => {
         response.status(200).json(accounts);
     };
     const updateAccount = async (request, response, next) => {
-        // Input
-        const id = request.params.id;
-        const { firstName, lastName, email, password } = request.body;
-        // Treatment
-        const account = await accountService.updateAccount(id, firstName, lastName, email, password, dependencies);
-        //output
-        response.status(200).json(account);
+        try {
+            // Input
+            const id = request.params.id;
+            const { firstName, lastName, email, password } = request.body;
+            // Treatment
+            const account = await accountService.updateAccount(id, firstName, lastName, email, password, dependencies);
+            //output
+            response.status(200).json(account);
+        } catch (e) {
+            next(createError(400, `Invalid Data: ${e.message}`));
+        }
     };
     const authenticateAccount = async (request, response, next) => {
         try {
@@ -39,7 +52,7 @@ export default (dependencies) => {
             const token = await accountService.authenticate(email, password, dependencies);
             response.status(200).json({ token: `BEARER ${token}` });
         } catch (error) {
-            response.status(401).json({ message: 'Unauthorised' });
+            next(createError(401));
         }
     };
     const addFavourite = async (request, response, next) => {
@@ -49,7 +62,7 @@ export default (dependencies) => {
             const account = await accountService.addFavourite(id, movieId, dependencies);
             response.status(200).json(account);
         } catch (err) {
-            next(new Error(`Invalid Data ${err.message}`));
+            next(createError(400, `Invalid Data ${err.message}`));
         }
     };
     const getFavourites = async (request, response, next) => {
@@ -58,7 +71,7 @@ export default (dependencies) => {
             const favourites = await accountService.getFavourites(id, dependencies);
             response.status(200).json(favourites);
         } catch (err) {
-            next(new Error(`Invalid Data ${err.message}`));
+            next(createError(400, `Invalid Data ${err.message}`));
         }
     };
     const verify = async (request, response, next) => {
@@ -72,7 +85,7 @@ export default (dependencies) => {
             next();
         } catch (err) {
             //Token Verification Failed
-            next(new Error(`Verification Failed ${err.message}`));
+            next(createError(401, `Verification Failed ${err.message}`));
         }
     };
     const addReview = async (request, response, next) => {
@@ -82,7 +95,7 @@ export default (dependencies) => {
             const review_response = await accountService.addReview(id, movieId, author, review, rating, dependencies);
             response.status(200).json(review_response);
         } catch (err) {
-            next(new Error(`Invalid Data ${err.message}`));
+            next(createError(400, `Invalid Data ${err.message}`));
         }
     };
     const getReviews = async (request, response, next) => {
@@ -91,7 +104,7 @@ export default (dependencies) => {
             const reviews = await accountService.getReviews(id, dependencies);
             response.status(200).json(reviews);
         } catch (err) {
-            next(new Error(`Invalid Data ${err.message}`));
+            next(createError(400, `Invalid Data ${err.message}`));
         }
     };
 
