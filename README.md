@@ -4,7 +4,7 @@ Name: Alka Nixon
 
 ## Features.
 
- + Feature 1 - 2 new API routes (parameterised URL) for reviews endpoint is added. The get reviews endpoint will fetch all the posted reviews of a particular user. The post endpoint will add the review of the user to the Account data. 
+ + Feature 1 - Two new API routes (parameterised URL) for reviews endpoint is added. The get reviews endpoint will fetch all the posted reviews of a particular user. The post endpoint will add the review of the user to the Account data. 
 
  + Feature 2 - Integration with MongoDB. MongoDB used to store and retrieve the reviews data.
 
@@ -14,10 +14,12 @@ Name: Alka Nixon
 
    + Feature 5 - Good use of express middleware (e.g. Error handling). Error handling is done by using 'http-errors' module which helps to specify error status and error messages.
 
-
     + Feature 6 - API documentation (for example Swagger/openAPI) - Documentation for all accounts endpoints and reviews endpoints.
+
     + Feature 7 - Logging - using 'winston' module
+
     + Feature 8 - React Integration- At least one GET and POST. User can call get endpoint from myReviews page to see a listed view of their reviews. The post endpoint will be called when user clicks the submit button in the review form and the data is saved to database.
+
     + Feature 9 - Basic Authentication and protected routes. Favourites, reviews, fantasy movies page, movie details page, actor details page are all private ones and user can only access movies listing if they are not authenticated.
 
 
@@ -64,7 +66,7 @@ LOG_LEVEL=info
 
 |  |  GET | POST 
 | -- | -- | --
-| /api/accounts/{userId}/reviews |Gets a list of movies |
+| /api/accounts/{userId}/reviews |Gets a list of reviews of a user | Add a new movie review
 
 API documentation done by using Swagger, the url for Swagger UI will be
 "http://localhost:8080/api-docs/"
@@ -85,8 +87,10 @@ Custom joi validation is used to validate review data submitted by the user in t
 The user after submitting the reviews form will be redirected to favourites page. A click on submit button will call the add review endpoint (POST) and the details will be stored in the mongodb database. The get endpoint is called when user navigate to the "myReviews" page from the home page. If no reviews are added yet by the user, then a message saying "No reviews yet" will be shown to user. Otherwise a table listing of all the reviews posted by the user will be displayed in the page.
 
 
-Link to react repo: https://github.com/ANSN07/React-Movie-App.git
-Example of POST API call:
+Link to react repo: https://github.com/ANSN07/React-Movie-App.git.
+
+
+Example of the POST API call:
 
 ~~~Javascript
 export const postUserReviews = (data) => {
