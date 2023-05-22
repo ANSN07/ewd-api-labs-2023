@@ -75,6 +75,25 @@ export default (dependencies) => {
             next(new Error(`Verification Failed ${err.message}`));
         }
     };
+    const addReview = async (request, response, next) => {
+        try {
+            const { movieId, author, review, rating } = request.body;
+            const id = request.params.id;
+            const review_response = await accountService.addReview(id, movieId, author, review, rating, dependencies);
+            response.status(200).json(review_response);
+        } catch (err) {
+            next(new Error(`Invalid Data ${err.message}`));
+        }
+    };
+    const getReviews = async (request, response, next) => {
+        try {
+            const id = request.params.id;
+            const reviews = await accountService.getReviews(id, dependencies);
+            response.status(200).json(reviews);
+        } catch (err) {
+            next(new Error(`Invalid Data ${err.message}`));
+        }
+    };
 
     return {
         createAccount,
@@ -84,6 +103,8 @@ export default (dependencies) => {
         authenticateAccount,
         addFavourite,
         getFavourites,
-        verify
+        verify,
+        addReview,
+        getReviews
     };
 };

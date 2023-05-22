@@ -1,4 +1,5 @@
 import Account from '../entities/Accounts';
+import Reviews from '../entities/Reviews';
 
 export default {
     registerAccount: async (firstName, lastName, email, password, { accountsRepository, authenticator }) => {
@@ -48,5 +49,15 @@ export default {
             throw new Error('Bad token');
         }
         return user.email;
-    }
+    },
+    addReview: async (accountId, movieId, author, review, rating, { accountsRepository }) => {
+        const account = await accountsRepository.get(accountId);
+        const newReview = new Reviews(movieId, author, review, rating);
+        account.reviews.push(newReview);
+        return await accountsRepository.merge(account);
+    },
+    getReviews: async (accountId, { accountsRepository }) => {
+        const account = await accountsRepository.get(accountId);
+        return account.reviews;
+    },
 };

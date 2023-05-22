@@ -1,14 +1,18 @@
 import express from 'express';
 import AccountsController from '../controllers';
-import ValidationController from '../controllers/ValidationController';
+import AccountValidationController from '../controllers/AccountValidationController';
+import ReviewValidationController from '../controllers/ReviewValidationController';
 
 const createRouter = (dependencies) => {
     const router = express.Router();
-    const validationController = ValidationController(dependencies);
+
+    const accountValidationController = AccountValidationController(dependencies);
+    const reviewValidationController = ReviewValidationController(dependencies);
+
     // load controller with dependencies
     const accountsController = AccountsController(dependencies);
     router.route('/')
-        .post(validationController.validateAccount, accountsController.createAccount);
+        .post(accountValidationController.validateAccount, accountsController.createAccount);
 
     router.route('/')
         .get(accountsController.listAccounts);
@@ -24,9 +28,15 @@ const createRouter = (dependencies) => {
 
     router.route('/:id/favourites')
         .post(accountsController.addFavourite);
-    
+
     router.route('/:id/favourites')
         .get(accountsController.getFavourites);
+
+    router.route('/:id/reviews')
+        .post(reviewValidationController.validateReview, accountsController.addReview);
+
+    router.route('/:id/reviews')
+        .get(accountsController.getReviews);
 
     return router;
 };
