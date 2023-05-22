@@ -19,6 +19,9 @@ const createRouter = (dependencies) => {
     router.route('/:id')
         .put(accountsController.updateAccount);
 
+    router.route('/security/token')
+        .post(accountsController.authenticateAccount);
+
     return router;
 };
 export default createRouter;
